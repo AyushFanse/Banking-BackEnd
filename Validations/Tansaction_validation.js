@@ -1,10 +1,11 @@
-const Output = require("../Output/OutputFunctin");
+const Output = require("../OutputGenerator/OutputFunctin");
 const EmptyValue = undefined;
 const min_transfer_amount = "Minimum withdrawal amount is 1000 for account ";
 const max_transfer_amount = "Maximum withdrawal amount is 30000 for account ";
 const daily__withdraw__limit = "Only 3 withdrawals are allowed in a day";
 const daily__diposit_limit = "Only 3 withdrawals are allowed in a day";
 const min_withdraw_amount = "Minimum withdraw amount is 1000";
+const max_withdraw_amount = "Maximum withdraw amount is 30000";
 const max_diposit_amount = "Maximum deposit amount is 50000";
 const min_diposit_amount = "Minimum deposit amount is 500";
 const insufficient_balance = "Insufficient balance";
@@ -78,6 +79,11 @@ exports.Withdraw_validation = (
     return false;
   }
 
+  if (parseInt(transition_amount) > 30000) {
+    Output.Creating_output_file(max_withdraw_amount);
+    return false;
+  }
+
   if (parseInt(transition_amount) > account_number.account_balance) {
     Output.Creating_output_file(insufficient_balance);
     return false;
@@ -105,7 +111,7 @@ exports.Tansfer_validation = (
     return false;
   }
 
-  if (parseInt(transition_amount) > transferfrom) {
+  if (parseInt(transition_amount) > transferfrom.account_balance) {
     Output.Creating_output_file(insufficient_balance);
     return false;
   }
@@ -115,7 +121,7 @@ exports.Tansfer_validation = (
     return false;
   }
 
-  if (parseInt(transition_amount) > 29999) {
+  if (parseInt(transition_amount) > 30000) {
     Output.Creating_output_file(max_transfer_amount + sender_account_number);
     return false;
   }

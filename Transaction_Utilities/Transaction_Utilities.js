@@ -1,4 +1,4 @@
-const Output = require("../Output/OutputFunctin");
+const Output = require("../OutputGenerator/OutputFunctin");
 const Validation = require("../Validations/Tansaction_validation");
 const EmptyValue = undefined;
 const Successful = "Successful";
@@ -14,10 +14,7 @@ let todays_date =
 
 function Create() {
   let finalOutput;
-  this.execution = (info,
-    account_details_map,
-    daily_transaction_track_map
-  ) => {
+  this.execution = (info, account_details_map, daily_transaction_track_map) => {
     let validation = Validation.Create_account_validation(info.account_holder);
 
     if (validation) {
@@ -40,45 +37,38 @@ function Create() {
             return finalOutput;
           }
         }
-        return finalOutput;
       };
 
       ExistAccount(default_account_number);
     }
-    return ;
+    return finalOutput;
   };
 }
 
 //*__________________* CHECKING BALANCE FUNCTION *__________________*//
 
 function Balance() {
-  this.execution = (info,
-    account_details_map,
-    daily_transaction_track_map
-  ) => {
+  let finalOutput;
+  this.execution = (info, account_details_map) => {
     let account_number = account_details_map.get(parseInt(info.account_number));
     let validation = Validation.Balance_Status_validation(account_number);
-    let finalOutput;
 
     if (validation) {
       Output.Creating_output_file(account_number.account_balance);
-      finalOutput = account_number.account_balance
-      return;
+      finalOutput = account_number.account_balance;
+      return finalOutput;
     }
-    return ;
   };
+  return finalOutput;
 }
 
 //*_______________________* DEPOSIT FUNCTION *_______________________*//
 
 function Deposit() {
-  this.execution = (info,
-    account_details_map,
-    daily_transaction_track_map
-  ) => {
-    let user_account = account_details_map.get(parseInt(info.account_number));
-    let finalOutput;
+  let finalOutput;
 
+  this.execution = (info, account_details_map, daily_transaction_track_map) => {
+    let user_account = account_details_map.get(parseInt(info.account_number));
     let validation = Validation.Deposit_validation(
       user_account,
       todays_date,
@@ -108,21 +98,18 @@ function Deposit() {
       );
       Output.Creating_output_file(updated_amount);
       finalOutput = updated_amount;
-      return;
+      return finalOutput;
     }
-    return ;
   };
+  return finalOutput;
 }
 
 //*_______________________* WITHDRAW FUNCTION *______________________*//
 
 function Withdraw() {
-  this.execution = (info,
-    account_details_map,
-    daily_transaction_track_map
-  ) => {
+  let finalOutput;
+  this.execution = (info, account_details_map, daily_transaction_track_map) => {
     let user_account = account_details_map.get(parseInt(info.account_number));
-    let finalOutput;
 
     let validation = Validation.Withdraw_validation(
       user_account,
@@ -154,19 +141,17 @@ function Withdraw() {
       Output.Creating_output_file(updated_amount);
 
       finalOutput = updated_amount;
-      return;
+      return finalOutput;
     }
-    return ;
   };
+  return finalOutput;
 }
 
 //*_______________________* TRANSFER FUNCTION *_______________________*//
 
 function Transfer() {
-  this.execution = (info,
-    account_details_map,
-    daily_transaction_track_map
-  ) => {
+  let finalOutput;
+  this.execution = (info, account_details_map) => {
     let transferfrom = account_details_map.get(
       parseInt(info.sender_account_number)
     );
@@ -182,8 +167,6 @@ function Transfer() {
       info.transition_amount
     );
 
-    let finalOutput;
-
     if (validation) {
       transferfrom = parseInt(transferfrom) - parseInt(info.transition_amount);
       account_details_map.set(
@@ -197,10 +180,10 @@ function Transfer() {
       );
       Output.Creating_output_file(Successful);
       finalOutput = Successful;
-      return;
+      return finalOutput;
     }
-    return ;
   };
+  return finalOutput;
 }
 
 module.exports = {

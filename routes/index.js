@@ -3,7 +3,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Sahaj Banking'});
+  res.render('index', { title: 'Banking'});
 });
 
 module.exports = router;

@@ -1,16 +1,19 @@
-const fs = require("fs");
-const file_name = "Input.text";
-const file_path = `Put-Input-File/${file_name}`;
+const InputProcessor = require("./InputProcessor");
 
+test("InputProcessor", () => {
+  const file_name = "Dommy-Inputs.text";
+  const file_path = `Put-Input-File/${file_name}`;
+  const map1 = new Map();
+  const map2 = new Map();
 
+  expect(InputProcessor(file_path, map1, map2)).toBe("Done");
+});
 
-test('fs', () => {
+test("InputProcessor", () => {
+  const file_name = "Dommy.text";
+  const file_path = `Put-Input-File/${file_name}`;
+  const map1 = new Map();
+  const map2 = new Map();
 
-    const fileRead = (filepath)=>{
-        let fatiching_input_data = fs.readFileSync(filepath);
-        let store_input_details = fatiching_input_data.toString().split("\n");
-        return store_input_details
-    }
-
-    expect(fileRead(file_path)).toStrictEqual(['Create "Ayush Fanse"']);
-  });
+  expect(InputProcessor(file_path, map1, map2)).toBe("Done");
+});

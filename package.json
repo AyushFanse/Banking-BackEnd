@@ -1,7 +1,6 @@
 {
-  "name": "sahaj_banking",
+  "name": "banking",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "jest --coverage",

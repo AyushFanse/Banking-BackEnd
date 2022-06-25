@@ -1,11 +1,11 @@
 const Transaction_Processor = require("../Transaction_Processor/Transaction_Processor");
 const fs = require("fs");
 
-const InputProcessor = (path,
+const InputProcessor = (
+  path,
   account_details_map,
   daily_transaction_track_map
 ) => {
-  
   const file_path = path;
 
   //&_______________________ Readig Text File _______________________&//
@@ -21,11 +21,11 @@ const InputProcessor = (path,
     daily_transaction_track_map
   );
 
-  setTimeout(() => {
-    fs.unlinkSync(file_path);
-  }, 2000);
+  // setTimeout(() => {
+  //   fs.unlinkSync(file_path);
+  // }, 2000);
 
-  return;
+  return "Done";
 };
 
 module.exports = InputProcessor;

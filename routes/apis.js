@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { create_file, get_file } = require("../modules/PostModule");
+const { create_file, get_file } = require("../modules/ApiModule");
 const upload = require("../middleWare/multer");
 
 //----------------------------* Post Input File *----------------------------//

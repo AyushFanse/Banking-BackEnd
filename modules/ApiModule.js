@@ -1,7 +1,8 @@
-const ImputProcessor = require("../InputFileProcessor/InputProcessor");
+const InputProcessor = require("../InputFileProcessor/InputProcessor");
 const fs = require("fs");
 const account_details_map = new Map();
 const daily_transaction_track_map = new Map();
+
 //*----------------------------* Create Post *----------------------------*//
 
 const create_file = async (req, res) => {
@@ -9,8 +10,7 @@ const create_file = async (req, res) => {
   daily_transaction_track_map.clear();
 
   try {
-
-    ImputProcessor(
+    InputProcessor(
       req.file.path,
       account_details_map,
       daily_transaction_track_map
@@ -18,7 +18,7 @@ const create_file = async (req, res) => {
 
     const ext = req.file.filename.substr(req.file.filename.lastIndexOf("."));
 
-    res.status(201).json({
+    res.status(201).send({
       msg: "File is ready! File will be availabe for 30sec only.",
       ext: ext,
     });
@@ -40,7 +40,7 @@ const get_file = (req, res) => {
 
     setTimeout(() => {
       fs.unlinkSync(file_path);
-    }, 2000);
+    }, 1000);
 
     res.status(200).download(file_path);
   } catch (err) {
