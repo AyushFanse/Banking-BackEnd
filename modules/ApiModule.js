@@ -8,6 +8,8 @@ const daily_transaction_track_map = new Map();
 const create_file = async (req, res) => {
   account_details_map.clear();
   daily_transaction_track_map.clear();
+  const file_path = `Get-Output-File/Output.text`;
+  fs.unlinkSync(file_path);
 
   try {
     InputProcessor(
@@ -15,9 +17,10 @@ const create_file = async (req, res) => {
       account_details_map,
       daily_transaction_track_map
     );
-
+    
+    
     const ext = req.file.filename.substr(req.file.filename.lastIndexOf("."));
-
+    
     res.status(201).send({
       msg: "File is ready! File will be availabe for 30sec only.",
       ext: ext,
