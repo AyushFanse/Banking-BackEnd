@@ -8,9 +8,7 @@ const daily_transaction_track_map = new Map();
 const create_file = async (req, res) => {
   account_details_map.clear();
   daily_transaction_track_map.clear();
-  const file_path = `Get-Output-File/Output.text`;
-  fs.unlinkSync(file_path);
-
+  
   try {
     InputProcessor(
       req.file.path,
